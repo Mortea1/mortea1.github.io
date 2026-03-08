@@ -1,857 +1,860 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Ingénieur Moderne</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        /* Particules d'arrière-plan */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
-        }
-        
-        /* Effet glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-        }
-        
-        .container {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        /* Header avec effet magnétique */
-        .header {
-            text-align: center;
-            padding: 60px 40px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: rotate 8s linear infinite;
-            z-index: -1;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 30px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            color: white;
-            font-weight: 700;
-            position: relative;
-            transition: all 0.5s ease;
-            cursor: pointer;
-        }
-        
-        .profile-image:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .name {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #fff, #f0f8ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .title {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-        
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
-        
-        .contact-link {
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .contact-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Sections avec animations */
-        .section {
-            margin-bottom: 40px;
-            padding: 40px;
-            animation: slideInLeft 0.8s ease-out;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            color: white;
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            transition: width 0.5s ease;
-        }
-        
-        .section:hover .section-title::after {
-            width: 100%;
-        }
-        
-        /* Grille de compétences repensée */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .skill-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-        }
-        
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 1;
-        }
-        
-        .skill-card:hover::before {
-            opacity: 1;
-        }
-        
-        .skill-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-        
-        .skill-name {
-            color: white;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .skill-description {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-            line-height: 1.4;
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* Animation de particules flottantes */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .floating-element {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: floatMagic 12s ease-in-out infinite;
-        }
-        
-        .floating-element:nth-child(2n) {
-            border-radius: 10px;
-            animation-duration: 15s;
-        }
-        
-        .floating-element:nth-child(3n) {
-            width: 40px;
-            height: 40px;
-            animation-duration: 10s;
-        }
-        
-        @keyframes floatMagic {
-            0%, 100% { 
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0.3;
-            }
-            25% { 
-                transform: translateY(-100px) translateX(50px) rotate(90deg);
-                opacity: 0.8;
-            }
-            50% { 
-                transform: translateY(-50px) translateX(-30px) rotate(180deg);
-                opacity: 0.5;
-            }
-            75% { 
-                transform: translateY(-150px) translateX(80px) rotate(270deg);
-                opacity: 0.9;
-            }
-        }
-        
-        /* Effet de morphing sur le header */
-        .header {
-            background: rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(255, 107, 107, 0.1) 0%,
-                rgba(78, 205, 196, 0.1) 25%,
-                rgba(106, 90, 205, 0.1) 50%,
-                rgba(255, 159, 64, 0.1) 75%,
-                rgba(255, 107, 107, 0.1) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-            z-index: -1;
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Effet de typing ultra smooth */
-        .typing-text {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .typing-text::after {
-            content: '';
-            position: absolute;
-            right: -3px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #4ecdc4;
-            animation: blink 1.2s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-        
-        /* Animations d'entrée séquentielles améliorées */
-        .animate-in {
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            animation: slideInScale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-        
-        .animate-in:nth-child(1) { animation-delay: 0.1s; }
-        .animate-in:nth-child(2) { animation-delay: 0.2s; }
-        .animate-in:nth-child(3) { animation-delay: 0.3s; }
-        .animate-in:nth-child(4) { animation-delay: 0.4s; }
-        .animate-in:nth-child(5) { animation-delay: 0.5s; }
-        .animate-in:nth-child(6) { animation-delay: 0.6s; }
-        
-        @keyframes slideInScale {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        /* Mad skill chess badge */
-        .chess-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-left: 10px;
-            position: relative;
-            animation: pulse 2s ease-in-out infinite;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Interaction magnétique sur les liens */
-        .contact-link {
-            position: relative;
-            transform-style: preserve-3d;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .contact-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            transform: scale(0);
-            transition: transform 0.3s ease;
-            z-index: -1;
-        }
-        
-        .contact-link:hover::before {
-            transform: scale(1.1);
-        }
-        
-        .contact-link:hover {
-            transform: translateY(-5px) translateZ(20px);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.2),
-                0 0 20px rgba(78, 205, 196, 0.3);
-        }
-        
-        /* Timeline de projets */
-        .project-timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-        
-        .project-timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #ff6b6b, #4ecdc4);
-        }
-        
-        .project-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .project-item::before {
-            content: '';
-            position: absolute;
-            left: -37px;
-            top: 25px;
-            width: 12px;
-            height: 12px;
-            background: #4ecdc4;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .project-item:hover {
-            transform: translateX(10px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .project-title {
-            color: #4ecdc4;
-            font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .project-description {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .name {
-                font-size: 2.5rem;
-            }
-            
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section {
-                padding: 25px;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Effet de curseur personnalisé */
-        body {
-            cursor: none;
-        }
-        
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.8);
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-        }
-        
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s ease;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carte Mentale — Service Public Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --center-bg: #1a2236;
+    --gold: #f0c040;
+    --gold-light: #fad96a;
+    --blue: #3b82f6;
+    --blue-light: #93c5fd;
+    --teal: #14b8a6;
+    --teal-light: #5eead4;
+    --rose: #f43f5e;
+    --rose-light: #fda4af;
+    --amber: #f59e0b;
+    --amber-light: #fcd34d;
+    --violet: #8b5cf6;
+    --violet-light: #c4b5fd;
+    --emerald: #10b981;
+    --emerald-light: #6ee7b7;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: rgba(255,255,255,0.06);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.15) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 15%, rgba(255,255,255,0.1) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 75%, rgba(255,255,255,0.12) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 60%, rgba(255,255,255,0.08) 0%, transparent 100%),
+      radial-gradient(2px 2px at 10% 80%, rgba(255,255,255,0.05) 0%, transparent 100%),
+      radial-gradient(600px circle at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header .eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  header h1 span {
+    color: var(--gold);
+  }
+
+  header p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+
+  .legend {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.2s;
+  }
+
+  .legend-item:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Main SVG map */
+  #map-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Tooltip */
+  #tooltip {
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+    max-width: 280px;
+    background: #1e2d45;
+    border: 1px solid rgba(240,192,64,0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  #tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #tooltip .tt-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  #tooltip .tt-body {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  #tooltip .tt-body ul {
+    padding-left: 1rem;
+    margin-top: 0.3rem;
+  }
+
+  #tooltip .tt-body li {
+    margin-bottom: 0.2rem;
+  }
+
+  /* Node interactions */
+  .node-group {
+    cursor: pointer;
+  }
+
+  .node-group:hover .node-bg {
+    filter: brightness(1.3);
+  }
+
+  /* Info panel */
+  #info-panel {
+    position: relative;
+    z-index: 10;
+    margin: 1.5rem auto;
+    max-width: 900px;
+    padding: 0 1rem;
+    display: none;
+  }
+
+  #info-panel.active {
+    display: block;
+    animation: fadeUp 0.3s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-card {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--panel-accent, var(--gold));
+  }
+
+  .panel-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--panel-accent, var(--gold));
+  }
+
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.7rem;
+    margin-top: 0.8rem;
+  }
+
+  .panel-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .panel-item strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    color: var(--panel-accent, var(--gold));
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+
+  .close-btn:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+
+  footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 600px) {
+    #map-container { overflow-x: auto; }
+    svg { min-width: 700px; }
+  }
+</style>
 </head>
 <body>
-    <div id="particles"></div>
-    <div class="floating-elements"></div>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-    
-    <div class="container">
-        <!-- Header -->
-        <header class="header glass">
-            <div class="profile-image">AD</div>
-            <h1 class="name typing-text">Alexis DOUTEZ</h1>
-            <p class="title">ESIEA - 1ère Année Cycle Ingénieur • Full-Stack Python Developer</p>
-            <div class="contact-links">
-                <a href="mailto:alexis.doutez@edu.esiea.fr" class="contact-link">📧 Contact</a>
-                <a href="#" class="contact-link">🔗 GitHub</a>
-                <a href="#" class="contact-link">💼 LinkedIn</a>
-                <a href="#" class="contact-link">🎓 ESIEA</a>
-            </div>
-        </header>
-        
-        <!-- Compétences -->
-        <section class="section glass">
-            <h2 class="section-title">🚀 Compétences Techniques</h2>
-            <div class="skills-grid">
-                <div class="skill-card animate-in">
-                    <div class="skill-name">Python • Flask • FastAPI</div>
-                    <div class="skill-description">Maîtrise complète du stack Python, développement web avancé</div>
-                </div>
-                <div class="skill-card animate-in">
-                    <div class="skill-name">IA • Machine Learning • Réseaux de Neurones</div>
-                    <div class="skill-description">Algorithmes génétiques, deep learning, projets médicaux</div>
-                </div>
-                <div class="skill-card animate-in">
-                    <div class="skill-name">Web Full-Stack (HTML/CSS/JS)</div>
-                    <div class="skill-description">Sites e-commerce complets, interfaces modernes</div>
-                </div>
-                <div class="skill-card animate-in">
-                    <div class="skill-name">C Programming • Game Development</div>
-                    <div class="skill-description">Moteurs de jeu, programmation système, performance</div>
-                </div>
-                <div class="skill-card animate-in">
-                    <div class="skill-name">Électronique Hardware • IoT</div>
-                    <div class="skill-description">Circuits, capteurs, systèmes embarqués</div>
-                </div>
-                <div class="skill-card animate-in">
-                    <div class="skill-name">Joueur d'échec<span class="chess-badge">♟️ 2200 ELO</span></div>
-                    <div class="skill-description">Logique stratégique, Raisonnement, Patience</div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Projets -->
-        <section class="section glass">
-            <h2 class="section-title">💡 Projets Marquants & Innovations</h2>
-            <div class="project-timeline">
-                <div class="project-item">
-                    <div class="project-title">🏥 ECG & IA Médicale</div>
-                    <div class="project-description">
-                        Création complète d'un électrocardiogramme avec intelligence artificielle 
-                        pour la détection automatique de pathologies cardiaques. Traitement du signal, 
-                        machine learning et interface médicale professionnelle.
-                    </div>
-                </div>
-                <div class="project-item">
-                    <div class="project-title">🎵 Boutique E-commerce "maisondelasirene.fr"</div>
-                    <div class="project-description">
-                        Développement from scratch d'une boutique de concerts en ligne avec Flask, 
-                        HTML/CSS/JS. Gestion complète : paiements, réservations, admin panel, 
-                        interface responsive et sécurisée.
-                    </div>
-                </div>
-                <div class="project-item">
-                    <div class="project-title">🧠 IA Multi-Jeux (Échecs, Othello, Quoridor)</div>
-                    <div class="project-description">
-                        Développement de réseaux de neurones entraînés génétiquement pour maîtriser 
-                        plusieurs jeux de stratégie. Algorithmes évolutionnaires et optimisation 
-                        des performances par apprentissage automatique.
-                    </div>
-                </div>
-                <div class="project-item">
-                    <div class="project-title">🎮 Game Engine & Éditeur Hardware</div>
-                    <div class="project-description">
-                        Création de jeux vidéo complets en C avec moteur personnalisé + 
-                        Conception d'un éditeur de texte électronique hardware avec composants 
-                        physiques et programmation bas niveau.
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Formation -->
-        <section class="section glass">
-            <h2 class="section-title">🎓 Formation</h2>
-            <div class="project-timeline">
-                <div class="project-item">
-                    <div class="project-title">ESIEA - École d'Ingénieurs</div>
-                    <div class="project-description">
-                        1ère Année Cycle Ingénieur • Spécialisation Informatique & Systèmes Numériques<br>
-                        Focus : IA/ML, Développement logiciel avancé, Électronique & Systèmes embarqués
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <a href = "temp.html"></a>
-    <script>
-        // Éléments flottants géométriques
-        function createFloatingElements() {
-            const container = document.querySelector('.floating-elements');
-            const elementCount = 8;
-            
-            for (let i = 0; i < elementCount; i++) {
-                const element = document.createElement('div');
-                element.className = 'floating-element';
-                element.style.left = Math.random() * 100 + '%';
-                element.style.top = Math.random() * 100 + '%';
-                element.style.animationDelay = Math.random() * 12 + 's';
-                
-                // Couleurs aléatoires subtiles
-                const colors = [
-                    'rgba(255, 107, 107, 0.1)',
-                    'rgba(78, 205, 196, 0.1)',
-                    'rgba(106, 90, 205, 0.1)',
-                    'rgba(255, 159, 64, 0.1)'
-                ];
-                element.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                container.appendChild(element);
-            }
-        }
-        // Particules animées
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // Curseur personnalisé
-        function initCustomCursor() {
-            const cursor = document.querySelector('.cursor');
-            const follower = document.querySelector('.cursor-follower');
-            
-            let mouseX = 0, mouseY = 0;
-            let followerX = 0, followerY = 0;
-            
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                cursor.style.left = mouseX - 10 + 'px';
-                cursor.style.top = mouseY - 10 + 'px';
-            });
-            
-            function updateFollower() {
-                followerX += (mouseX - followerX) * 0.1;
-                followerY += (mouseY - followerY) * 0.1;
-                
-                follower.style.left = followerX - 20 + 'px';
-                follower.style.top = followerY - 20 + 'px';
-                
-                requestAnimationFrame(updateFollower);
-            }
-            updateFollower();
-        }
-        
-        // Animation des compétences au scroll
-        function animateSkillCards() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationPlayState = 'running';
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.animate-in').forEach(card => {
-                observer.observe(card);
-            });
-        }
-        
-        // Effet de magnetic hover amélioré
-        function initMagneticEffect() {
-            const cards = document.querySelectorAll('.skill-card, .project-item, .contact-link');
-            
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-                    const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-                    
-                    card.style.transform = `
-                        translateY(${card.classList.contains('skill-card') ? -8 : 0}px) 
-                        scale(${card.classList.contains('skill-card') ? 1.02 : 1}) 
-                        rotateX(${y * 10}deg) 
-                        rotateY(${x * 10}deg)
-                        translateZ(20px)
-                    `;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = '';
-                });
-            });
-        }
-        
-        // Parallax scroll
-        function initParallax() {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const particles = document.querySelectorAll('.particle');
-                
-                particles.forEach((particle, index) => {
-                    const speed = (index % 3 + 1) * 0.5;
-                    particle.style.transform = `translateY(${scrolled * speed}px)`;
-                });
-            });
-        }
-        
-        // Effet de typing pour le titre
-        function typeWriter() {
-            const titles = [
-                "ESIEA - Elève Ingénieur • Full-Stack Python Developer",
-                "Créateur IA & Hardware • Projets Innovants",
-                "Future Ingénieur • Code & Innovation"
-            ];
-            
-            let titleIndex = 0;
-            let charIndex = 0;
-            const titleElement = document.querySelector('.title');
-            
-            function type() {
-                if (charIndex < titles[titleIndex].length) {
-                    titleElement.textContent = titles[titleIndex].substring(0, charIndex + 1);
-                    charIndex++;
-                    setTimeout(type, 100);
-                } else {
-                    setTimeout(() => {
-                        charIndex = 0;
-                        titleIndex = (titleIndex + 1) % titles.length;
-                        titleElement.textContent = '';
-                        type();
-                    }, 3000);
-                }
-            }
-            
-            // Commencer après 2 secondes
-            setTimeout(type, 2000);
-        }
-        
-        // Interactions hover avancées
-        function initHoverEffects() {
-            const cards = document.querySelectorAll('.skill-card, .project-item');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    card.style.setProperty('--mouse-x', x + 'px');
-                    card.style.setProperty('--mouse-y', y + 'px');
-                });
-            });
-        }
-        
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', () => {
-            createFloatingElements();
-            createParticles();
-            initCustomCursor();
-            animateSkillCards();
-            initParallax();
-            typeWriter();
-            initMagneticEffect();
-        });
-        
-        // Easter egg - Konami Code
-        let konamiCode = [];
-        const pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-        
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.code);
-            konamiCode = konamiCode.slice(-pattern.length);
-            
-            if (konamiCode.join('') === pattern.join('')) {
-                document.body.style.filter = 'hue-rotate(180deg)';
-                setTimeout(() => {
-                    document.body.style.filter = 'none';
-                }, 3000);
-            }
-        });
-    </script>
+
+<header>
+  <div class="eyebrow">Module Environnement Territorial · Formation SGM</div>
+  <h1>Le <span>Service Public Local</span> — Cadre général</h1>
+  <p>Cliquez sur un nœud pour afficher les détails · Survol pour un aperçu rapide</p>
+</header>
+
+<div class="legend">
+  <div class="legend-item" onclick="filterBranch('definition')"><div class="legend-dot" style="background:#f0c040"></div>Définition & fondements</div>
+  <div class="legend-item" onclick="filterBranch('principes')"><div class="legend-dot" style="background:#3b82f6"></div>Principes fondamentaux</div>
+  <div class="legend-item" onclick="filterBranch('missions')"><div class="legend-dot" style="background:#14b8a6"></div>Missions & caractéristiques</div>
+  <div class="legend-item" onclick="filterBranch('modes')"><div class="legend-dot" style="background:#f43f5e"></div>Modes de gestion</div>
+  <div class="legend-item" onclick="filterBranch('acteurs')"><div class="legend-dot" style="background:#8b5cf6"></div>Acteurs</div>
+  <div class="legend-item" onclick="filterBranch('types')"><div class="legend-dot" style="background:#f59e0b"></div>Types de SP</div>
+  <div class="legend-item" onclick="filterBranch(null)"><div class="legend-dot" style="background:#94a3b8"></div>Tout afficher</div>
+</div>
+
+<div id="map-container">
+<svg viewBox="0 0 1200 820" xmlns="http://www.w3.org/2000/svg" id="mindmap">
+<defs>
+  <!-- Glow filters -->
+  <filter id="glow-gold" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="8" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="5" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glow-soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+
+  <!-- Gradients -->
+  <radialGradient id="center-grad" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#2a3f6a"/>
+    <stop offset="100%" stop-color="#1a2236"/>
+  </radialGradient>
+
+  <linearGradient id="grad-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#f0c040"/>
+    <stop offset="100%" stop-color="#d4a010"/>
+  </linearGradient>
+  <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3b82f6"/>
+    <stop offset="100%" stop-color="#1d4ed8"/>
+  </linearGradient>
+  <linearGradient id="grad-teal" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#14b8a6"/>
+    <stop offset="100%" stop-color="#0d9488"/>
+  </linearGradient>
+  <linearGradient id="grad-rose" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#f43f5e"/>
+    <stop offset="100%" stop-color="#be123c"/>
+  </linearGradient>
+  <linearGradient id="grad-violet" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#8b5cf6"/>
+    <stop offset="100%" stop-color="#6d28d9"/>
+  </linearGradient>
+  <linearGradient id="grad-amber" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#f59e0b"/>
+    <stop offset="100%" stop-color="#d97706"/>
+  </linearGradient>
+  <linearGradient id="grad-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#10b981"/>
+    <stop offset="100%" stop-color="#059669"/>
+  </linearGradient>
+
+  <!-- Connector line style -->
+  <style>
+    .branch-line { stroke-width: 2; fill: none; stroke-linecap: round; opacity: 0.5; }
+    .sub-line { stroke-width: 1.5; fill: none; stroke-linecap: round; opacity: 0.3; stroke-dasharray: 4 3; }
+    .node-label { font-family: 'DM Sans', sans-serif; dominant-baseline: central; text-anchor: middle; pointer-events: none; }
+    .node-label-main { font-family: 'Syne', sans-serif; font-weight: 700; }
+    .branch-label { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 11px; dominant-baseline: central; }
+    .sub-label { font-family: 'DM Sans', sans-serif; font-size: 9.5px; dominant-baseline: central; }
+  </style>
+</defs>
+
+<!-- ========= CONNECTIONS ========= -->
+<!-- Center to branches -->
+<g class="connections">
+  <!-- Gold: Définition -->
+  <line class="branch-line" stroke="#f0c040" x1="600" y1="410" x2="220" y2="200"/>
+  <!-- Blue: Principes -->
+  <line class="branch-line" stroke="#3b82f6" x1="600" y1="410" x2="960" y2="165"/>
+  <!-- Teal: Missions -->
+  <line class="branch-line" stroke="#14b8a6" x1="600" y1="410" x2="1050" y2="430"/>
+  <!-- Rose: Modes gestion -->
+  <line class="branch-line" stroke="#f43f5e" x1="600" y1="410" x2="740" y2="670"/>
+  <!-- Violet: Acteurs -->
+  <line class="branch-line" stroke="#8b5cf6" x1="600" y1="410" x2="360" y2="660"/>
+  <!-- Amber: Types -->
+  <line class="branch-line" stroke="#f59e0b" x1="600" y1="410" x2="160" y2="500"/>
+
+  <!-- Sub-branches: Définition -->
+  <line class="sub-line" stroke="#f0c040" x1="220" y1="200" x2="80" y2="130"/>
+  <line class="sub-line" stroke="#f0c040" x1="220" y1="200" x2="90" y2="270"/>
+  <line class="sub-line" stroke="#f0c040" x1="220" y1="200" x2="230" y2="80"/>
+
+  <!-- Sub-branches: Principes (Lois de Rolland) -->
+  <line class="sub-line" stroke="#3b82f6" x1="960" y1="165" x2="1100" y2="60"/>
+  <line class="sub-line" stroke="#3b82f6" x1="960" y1="165" x2="1110" y2="160"/>
+  <line class="sub-line" stroke="#3b82f6" x1="960" y1="165" x2="1090" y2="265"/>
+  <line class="sub-line" stroke="#3b82f6" x1="960" y1="165" x2="860" y2="60"/>
+
+  <!-- Sub-branches: Missions -->
+  <line class="sub-line" stroke="#14b8a6" x1="1050" y1="430" x2="1130" y2="335"/>
+  <line class="sub-line" stroke="#14b8a6" x1="1050" y1="430" x2="1155" y2="450"/>
+  <line class="sub-line" stroke="#14b8a6" x1="1050" y1="430" x2="1120" y2="540"/>
+
+  <!-- Sub-branches: Modes gestion -->
+  <line class="sub-line" stroke="#f43f5e" x1="740" y1="670" x2="660" y2="770"/>
+  <line class="sub-line" stroke="#f43f5e" x1="740" y1="670" x2="780" y2="770"/>
+  <line class="sub-line" stroke="#f43f5e" x1="740" y1="670" x2="900" y2="750"/>
+  <line class="sub-line" stroke="#f43f5e" x1="740" y1="670" x2="580" y2="770"/>
+
+  <!-- Sub-branches: Acteurs -->
+  <line class="sub-line" stroke="#8b5cf6" x1="360" y1="660" x2="220" y2="750"/>
+  <line class="sub-line" stroke="#8b5cf6" x1="360" y1="660" x2="380" y2="770"/>
+  <line class="sub-line" stroke="#8b5cf6" x1="360" y1="660" x2="490" y2="755"/>
+
+  <!-- Sub-branches: Types -->
+  <line class="sub-line" stroke="#f59e0b" x1="160" y1="500" x2="60" y2="420"/>
+  <line class="sub-line" stroke="#f59e0b" x1="160" y1="500" x2="60" y2="580"/>
+</g>
+
+<!-- ========= CENTER NODE ========= -->
+<g class="node-group" onclick="showPanel('center')" filter="url(#glow-gold)">
+  <!-- Outer ring -->
+  <circle cx="600" cy="410" r="90" fill="none" stroke="#f0c040" stroke-width="1.5" opacity="0.2"/>
+  <circle cx="600" cy="410" r="75" fill="none" stroke="#f0c040" stroke-width="1" opacity="0.15"/>
+  <!-- Main circle -->
+  <circle cx="600" cy="410" r="62" fill="url(#center-grad)" stroke="#f0c040" stroke-width="2" class="node-bg"/>
+  <!-- Icon ring pulse -->
+  <circle cx="600" cy="410" r="62" fill="none" stroke="#f0c040" stroke-width="3" opacity="0.4">
+    <animate attributeName="r" values="62;70;62" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Maison icon stylisée -->
+  <text x="600" y="398" text-anchor="middle" font-size="22" fill="#f0c040">🏛</text>
+  <text class="node-label node-label-main" x="600" y="420" font-size="11" fill="#fad96a" letter-spacing="0.5">SERVICE</text>
+  <text class="node-label node-label-main" x="600" y="434" font-size="11" fill="#fad96a" letter-spacing="0.5">PUBLIC</text>
+  <text class="node-label" x="600" y="448" font-size="8.5" fill="#94a3b8">LOCAL</text>
+</g>
+
+<!-- ========= BRANCH 1: DÉFINITION (gold, top-left) ========= -->
+<g class="node-group" data-branch="definition" onclick="showPanel('definition')" filter="url(#glow-soft)">
+  <ellipse cx="220" cy="200" rx="75" ry="35" fill="url(#grad-gold)" class="node-bg"/>
+  <text class="branch-label" x="220" y="197" text-anchor="middle" fill="#0a0e1a">DÉFINITION</text>
+  <text class="branch-label" x="220" y="209" text-anchor="middle" fill="#0a0e1a">&amp; FONDEMENTS</text>
+</g>
+
+<!-- Sub-nodes: Définition -->
+<g class="node-group" data-branch="definition" onclick="showPanel('interet-general')">
+  <rect x="20" y="108" width="125" height="44" rx="8" fill="#1e2d20" stroke="#f0c040" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="82" y="127" text-anchor="middle" fill="#fad96a">Intérêt général</text>
+  <text class="sub-label" x="82" y="141" text-anchor="middle" fill="#94a3b8">≠ intérêt privé</text>
+</g>
+<g class="node-group" data-branch="definition" onclick="showPanel('personne-publique')">
+  <rect x="20" y="248" width="130" height="44" rx="8" fill="#1e2d20" stroke="#f0c040" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="85" y="267" text-anchor="middle" fill="#fad96a">Personne publique</text>
+  <text class="sub-label" x="85" y="281" text-anchor="middle" fill="#94a3b8">ou délégataire</text>
+</g>
+<g class="node-group" data-branch="definition" onclick="showPanel('regime-exorbitant')">
+  <rect x="143" y="52" width="135" height="44" rx="8" fill="#1e2d20" stroke="#f0c040" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="210" y="71" text-anchor="middle" fill="#fad96a">Régime exorbitant</text>
+  <text class="sub-label" x="210" y="85" text-anchor="middle" fill="#94a3b8">du droit commun</text>
+</g>
+
+<!-- ========= BRANCH 2: PRINCIPES (blue, top-right) ========= -->
+<g class="node-group" data-branch="principes" onclick="showPanel('principes')" filter="url(#glow-soft)">
+  <ellipse cx="960" cy="165" rx="82" ry="35" fill="url(#grad-blue)" class="node-bg"/>
+  <text class="branch-label" x="960" y="158" text-anchor="middle" fill="#fff" font-size="10">PRINCIPES</text>
+  <text class="branch-label" x="960" y="171" text-anchor="middle" fill="#dbeafe" font-size="9">Lois de Rolland</text>
+</g>
+
+<g class="node-group" data-branch="principes" onclick="showPanel('continuite')">
+  <rect x="1042" y="40" width="125" height="44" rx="8" fill="#1a2440" stroke="#3b82f6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="1104" y="59" text-anchor="middle" fill="#93c5fd">Continuité</text>
+  <text class="sub-label" x="1104" y="73" text-anchor="middle" fill="#94a3b8">Pas d'interruption</text>
+</g>
+<g class="node-group" data-branch="principes" onclick="showPanel('egalite')">
+  <rect x="1054" y="138" width="110" height="44" rx="8" fill="#1a2440" stroke="#3b82f6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="1109" y="157" text-anchor="middle" fill="#93c5fd">Égalité</text>
+  <text class="sub-label" x="1109" y="171" text-anchor="middle" fill="#94a3b8">Traitement égal</text>
+</g>
+<g class="node-group" data-branch="principes" onclick="showPanel('mutabilite')">
+  <rect x="1030" y="243" width="128" height="44" rx="8" fill="#1a2440" stroke="#3b82f6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="1094" y="262" text-anchor="middle" fill="#93c5fd">Mutabilité</text>
+  <text class="sub-label" x="1094" y="276" text-anchor="middle" fill="#94a3b8">Adaptabilité</text>
+</g>
+<g class="node-group" data-branch="principes" onclick="showPanel('neutralite')">
+  <rect x="808" y="40" width="114" height="44" rx="8" fill="#1a2440" stroke="#3b82f6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="865" y="59" text-anchor="middle" fill="#93c5fd">Neutralité</text>
+  <text class="sub-label" x="865" y="73" text-anchor="middle" fill="#94a3b8">Principe ajouté</text>
+</g>
+
+<!-- ========= BRANCH 3: MISSIONS (teal, right) ========= -->
+<g class="node-group" data-branch="missions" onclick="showPanel('missions')" filter="url(#glow-soft)">
+  <ellipse cx="1050" cy="430" rx="75" ry="35" fill="url(#grad-teal)" class="node-bg"/>
+  <text class="branch-label" x="1050" y="427" text-anchor="middle" fill="#fff">MISSIONS &amp;</text>
+  <text class="branch-label" x="1050" y="439" text-anchor="middle" fill="#ccfbf1" font-size="9">CARACTÉRISTIQUES</text>
+</g>
+
+<g class="node-group" data-branch="missions" onclick="showPanel('besoins-collectifs')">
+  <rect x="1090" y="310" width="105" height="50" rx="8" fill="#0f2620" stroke="#14b8a6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="1143" y="330" text-anchor="middle" fill="#5eead4">Besoins</text>
+  <text class="sub-label" x="1143" y="343" text-anchor="middle" fill="#5eead4">collectifs</text>
+  <text class="sub-label" x="1143" y="356" text-anchor="middle" fill="#94a3b8">locaux</text>
+</g>
+<g class="node-group" data-branch="missions" onclick="showPanel('proximite')">
+  <rect x="1110" y="425" width="105" height="50" rx="8" fill="#0f2620" stroke="#14b8a6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="1163" y="445" text-anchor="middle" fill="#5eead4">Proximité</text>
+  <text class="sub-label" x="1163" y="458" text-anchor="middle" fill="#94a3b8">Efficacité</text>
+  <text class="sub-label" x="1163" y="471" text-anchor="middle" fill="#94a3b8">locale</text>
+</g>
+<g class="node-group" data-branch="missions" onclick="showPanel('solidarite')">
+  <rect x="1075" y="515" width="108" height="50" rx="8" fill="#0f2620" stroke="#14b8a6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="1129" y="535" text-anchor="middle" fill="#5eead4">Solidarité</text>
+  <text class="sub-label" x="1129" y="548" text-anchor="middle" fill="#94a3b8">&amp; cohésion</text>
+  <text class="sub-label" x="1129" y="561" text-anchor="middle" fill="#94a3b8">territoriale</text>
+</g>
+
+<!-- ========= BRANCH 4: MODES DE GESTION (rose, bottom-right) ========= -->
+<g class="node-group" data-branch="modes" onclick="showPanel('modes')" filter="url(#glow-soft)">
+  <ellipse cx="740" cy="670" rx="82" ry="33" fill="url(#grad-rose)" class="node-bg"/>
+  <text class="branch-label" x="740" y="663" text-anchor="middle" fill="#fff">MODES DE</text>
+  <text class="branch-label" x="740" y="676" text-anchor="middle" fill="#fecdd3">GESTION</text>
+</g>
+
+<g class="node-group" data-branch="modes" onclick="showPanel('regie')">
+  <rect x="543" y="752" width="108" height="50" rx="8" fill="#2a1520" stroke="#f43f5e" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="597" y="772" text-anchor="middle" fill="#fda4af">Régie directe</text>
+  <text class="sub-label" x="597" y="785" text-anchor="middle" fill="#94a3b8">Gestion propre</text>
+  <text class="sub-label" x="597" y="798" text-anchor="middle" fill="#94a3b8">collectivité</text>
+</g>
+<g class="node-group" data-branch="modes" onclick="showPanel('dsp')">
+  <rect x="726" y="755" width="108" height="50" rx="8" fill="#2a1520" stroke="#f43f5e" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="780" y="773" text-anchor="middle" fill="#fda4af">DSP</text>
+  <text class="sub-label" x="780" y="786" text-anchor="middle" fill="#94a3b8">Concession</text>
+  <text class="sub-label" x="780" y="799" text-anchor="middle" fill="#94a3b8">/ Affermage</text>
+</g>
+<g class="node-group" data-branch="modes" onclick="showPanel('ep')">
+  <rect x="860" y="730" width="112" height="50" rx="8" fill="#2a1520" stroke="#f43f5e" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="916" y="750" text-anchor="middle" fill="#fda4af">Établissement</text>
+  <text class="sub-label" x="916" y="763" text-anchor="middle" fill="#fda4af">public local</text>
+  <text class="sub-label" x="916" y="776" text-anchor="middle" fill="#94a3b8">Pers. morale</text>
+</g>
+<g class="node-group" data-branch="modes" onclick="showPanel('marche')">
+  <rect x="616" y="754" width="108" height="50" rx="8" fill="#2a1520" stroke="#f43f5e" stroke-width="1.2" class="node-bg" opacity="0"/>
+  <!-- Hidden, merged with DSP above -->
+</g>
+
+<!-- ========= BRANCH 5: ACTEURS (violet, bottom-left) ========= -->
+<g class="node-group" data-branch="acteurs" onclick="showPanel('acteurs')" filter="url(#glow-soft)">
+  <ellipse cx="360" cy="660" rx="78" ry="33" fill="url(#grad-violet)" class="node-bg"/>
+  <text class="branch-label" x="360" y="656" text-anchor="middle" fill="#fff">ACTEURS</text>
+  <text class="branch-label" x="360" y="669" text-anchor="middle" fill="#ede9fe" font-size="9">&amp; ORGANISATION</text>
+</g>
+
+<g class="node-group" data-branch="acteurs" onclick="showPanel('collectivites')">
+  <rect x="150" y="730" width="120" height="50" rx="8" fill="#1c1535" stroke="#8b5cf6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="210" y="750" text-anchor="middle" fill="#c4b5fd">Collectivités</text>
+  <text class="sub-label" x="210" y="763" text-anchor="middle" fill="#c4b5fd">territoriales</text>
+  <text class="sub-label" x="210" y="776" text-anchor="middle" fill="#94a3b8">Communes…</text>
+</g>
+<g class="node-group" data-branch="acteurs" onclick="showPanel('etat')">
+  <rect x="330" y="748" width="100" height="44" rx="8" fill="#1c1535" stroke="#8b5cf6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="380" y="767" text-anchor="middle" fill="#c4b5fd">État</text>
+  <text class="sub-label" x="380" y="781" text-anchor="middle" fill="#94a3b8">Contrôle légalité</text>
+</g>
+<g class="node-group" data-branch="acteurs" onclick="showPanel('usagers')">
+  <rect x="446" y="735" width="100" height="44" rx="8" fill="#1c1535" stroke="#8b5cf6" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="496" y="754" text-anchor="middle" fill="#c4b5fd">Usagers</text>
+  <text class="sub-label" x="496" y="768" text-anchor="middle" fill="#94a3b8">Droits &amp; devoirs</text>
+</g>
+
+<!-- ========= BRANCH 6: TYPES DE SP (amber, left) ========= -->
+<g class="node-group" data-branch="types" onclick="showPanel('types')" filter="url(#glow-soft)">
+  <ellipse cx="160" cy="500" rx="72" ry="33" fill="url(#grad-amber)" class="node-bg"/>
+  <text class="branch-label" x="160" y="496" text-anchor="middle" fill="#0a0e1a">TYPES DE SP</text>
+  <text class="branch-label" x="160" y="509" text-anchor="middle" fill="#1c1400" font-size="9">SPA / SPIC</text>
+</g>
+
+<g class="node-group" data-branch="types" onclick="showPanel('spa')">
+  <rect x="18" y="395" width="100" height="50" rx="8" fill="#221800" stroke="#f59e0b" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="68" y="415" text-anchor="middle" fill="#fcd34d">SPA</text>
+  <text class="sub-label" x="68" y="428" text-anchor="middle" fill="#94a3b8">Droit public</text>
+  <text class="sub-label" x="68" y="441" text-anchor="middle" fill="#94a3b8">Subvention</text>
+</g>
+<g class="node-group" data-branch="types" onclick="showPanel('spic')">
+  <rect x="18" y="556" width="100" height="50" rx="8" fill="#221800" stroke="#f59e0b" stroke-width="1.2" class="node-bg"/>
+  <text class="sub-label" x="68" y="576" text-anchor="middle" fill="#fcd34d">SPIC</text>
+  <text class="sub-label" x="68" y="589" text-anchor="middle" fill="#94a3b8">Droit privé</text>
+  <text class="sub-label" x="68" y="602" text-anchor="middle" fill="#94a3b8">Redevance</text>
+</g>
+
+<!-- ========= FLOATING CONTEXT BADGE ========= -->
+<g>
+  <rect x="465" y="260" width="270" height="28" rx="14" fill="rgba(240,192,64,0.08)" stroke="rgba(240,192,64,0.2)" stroke-width="1"/>
+  <text x="600" y="278" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#f0c040" letter-spacing="0.5">Décentralisation · Loi 2 mars 1982 · Libre administration</text>
+</g>
+
+</svg>
+</div>
+
+<!-- Info Panel -->
+<div id="info-panel">
+  <div class="panel-card" id="panel-content">
+    <button class="close-btn" onclick="closePanel()">✕</button>
+    <h3 id="panel-title"></h3>
+    <div id="panel-body"></div>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip">
+  <div class="tt-title" id="tt-title"></div>
+  <div class="tt-body" id="tt-body"></div>
+</div>
+
+<footer>
+  Formation SGM · Module Environnement Territorial · 12 mars 2026 · Dispositif pédagogique complet
+</footer>
+
+<script>
+const panels = {
+  center: {
+    color: '#f0c040',
+    title: '🏛 Le Service Public Local — Vue d\'ensemble',
+    content: `<p style="color:#94a3b8;font-size:0.8rem;line-height:1.6;margin-bottom:0.8rem;">Le service public local désigne toute activité d'intérêt général prise en charge par une collectivité territoriale ou un organisme qu'elle contrôle, afin de satisfaire les besoins de la population locale.</p>
+    <div class="panel-grid">
+      <div class="panel-item"><strong>Fondement</strong>Décentralisation – Loi du 2 mars 1982</div>
+      <div class="panel-item"><strong>Principe constitutionnel</strong>Libre administration des collectivités (art. 72 C°)</div>
+      <div class="panel-item"><strong>Contrôle</strong>Légalité a posteriori par le préfet</div>
+      <div class="panel-item"><strong>Diversité</strong>SPA et SPIC selon la nature de l'activité</div>
+    </div>`
+  },
+  definition: {
+    color: '#f0c040',
+    title: '📖 Définition & Fondements juridiques',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Intérêt général</strong>Activité visant le bien commun de la population, distincte de l'intérêt privé ou particulier</div>
+      <div class="panel-item"><strong>Personne publique ou délégataire</strong>La collectivité peut gérer directement ou déléguer à un tiers (public ou privé)</div>
+      <div class="panel-item"><strong>Régime exorbitant</strong>Dérogations au droit commun : prérogatives de puissance publique, droits et obligations spécifiques</div>
+      <div class="panel-item"><strong>Base légale</strong>CGCT + lois sectorielles + jurisprudence du Conseil d'État</div>
+    </div>`
+  },
+  principes: {
+    color: '#3b82f6',
+    title: '⚖️ Les Principes Fondamentaux — Lois de Rolland',
+    content: `<p style="color:#94a3b8;font-size:0.78rem;margin-bottom:0.8rem;font-style:italic;">Identifiés par le juriste Louis Rolland au début du XXe siècle, ces principes fondent le régime juridique de tout service public.</p>
+    <div class="panel-grid">
+      <div class="panel-item"><strong>Continuité</strong>Le service ne peut être interrompu. Limite le droit de grève. Base du service minimum.</div>
+      <div class="panel-item"><strong>Égalité</strong>Tous les usagers ont accès au service dans des conditions identiques. Pas de discrimination.</div>
+      <div class="panel-item"><strong>Mutabilité / Adaptabilité</strong>Le service doit évoluer pour s'adapter aux besoins et aux nouvelles techniques.</div>
+      <div class="panel-item"><strong>Neutralité</strong>Principe déduit : pas d'influence politique, religieuse ou commerciale dans la gestion du service.</div>
+    </div>`
+  },
+  continuite: {
+    color: '#3b82f6',
+    title: 'Continuité du service public',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Principe</strong>Fonctionnement permanent sans interruption non justifiée</div>
+      <div class="panel-item"><strong>Conséquence</strong>Encadrement du droit de grève dans les services essentiels (eau, transports, urgences)</div>
+      <div class="panel-item"><strong>Exemples locaux</strong>Ramassage scolaire, distribution d'eau, état civil, urgences sociales</div>
+    </div>`
+  },
+  egalite: {
+    color: '#3b82f6',
+    title: 'Égalité devant le service public',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Principe</strong>Accès identique pour tous les usagers placés dans la même situation</div>
+      <div class="panel-item"><strong>Nuance</strong>Des tarifs différenciés sont possibles si les situations sont objectivement différentes (ex. : quotient familial)</div>
+      <div class="panel-item"><strong>Exemples</strong>Tarification sociale crèche, périscolaire, médiathèque</div>
+    </div>`
+  },
+  mutabilite: {
+    color: '#3b82f6',
+    title: 'Mutabilité / Adaptabilité',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Principe</strong>Le service doit s'adapter aux évolutions des besoins de la population et des techniques</div>
+      <div class="panel-item"><strong>Conséquence</strong>L'usager n'a pas de droit acquis au maintien du service dans ses modalités actuelles</div>
+      <div class="panel-item"><strong>Exemple</strong>Passage de la bibliothèque physique à la médiathèque numérique</div>
+    </div>`
+  },
+  neutralite: {
+    color: '#3b82f6',
+    title: 'Neutralité',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Principe additionnel</strong>Pas de discrimination selon les opinions politiques, religieuses ou philosophiques</div>
+      <div class="panel-item"><strong>Application</strong>Agents soumis au devoir de neutralité, locaux publics non partisans</div>
+    </div>`
+  },
+  missions: {
+    color: '#14b8a6',
+    title: '🎯 Missions & Caractéristiques du SPL',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Besoins collectifs locaux</strong>Répondre aux besoins de la population que le marché ne satisfait pas ou mal</div>
+      <div class="panel-item"><strong>Proximité</strong>Gestion au plus près des citoyens pour plus d'efficacité et de réactivité</div>
+      <div class="panel-item"><strong>Solidarité</strong>Réduction des inégalités territoriales et sociales via des services accessibles à tous</div>
+      <div class="panel-item"><strong>Développement local</strong>Aménagement du territoire, attractivité, emploi, qualité de vie</div>
+    </div>`
+  },
+  besoins: { color: '#14b8a6', title: 'Besoins collectifs locaux', content: '<div class="panel-grid"><div class="panel-item"><strong>Définition</strong>Activités que le marché privé ne peut ou ne veut pas assurer à un coût acceptable pour tous</div><div class="panel-item"><strong>Exemples</strong>Crèches, maisons de retraite, transports scolaires, centres sociaux</div></div>' },
+  modes: {
+    color: '#f43f5e',
+    title: '⚙️ Les Modes de Gestion du Service Public Local',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Régie directe</strong>La collectivité gère avec ses propres agents et équipements. Budget intégré. Exemple : cantine scolaire.</div>
+      <div class="panel-item"><strong>DSP – Concession</strong>Opérateur privé finance et exploite. Rémunération par les usagers. Exemple : gare routière.</div>
+      <div class="panel-item"><strong>DSP – Affermage</strong>Équipement public fourni par la collectivité. Opérateur exploite et encaisse les redevances. Exemple : eau potable (Véolia, Suez).</div>
+      <div class="panel-item"><strong>Établissement public local</strong>Entité dotée de la personnalité morale (CCAS, caisse des écoles, régie autonome). Gestion semi-indépendante.</div>
+    </div>`
+  },
+  regie: {
+    color: '#f43f5e',
+    title: 'La Régie Directe',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Définition</strong>La collectivité gère le service avec son propre personnel, ses propres équipements, sur son budget général</div>
+      <div class="panel-item"><strong>Avantages</strong>Contrôle total, pas de profit privé, agents FPT</div>
+      <div class="panel-item"><strong>Inconvénients</strong>Risque financier direct pour la collectivité, moins de flexibilité</div>
+      <div class="panel-item"><strong>Exemples</strong>Espaces verts, voirie, état civil, restaurant municipal</div>
+    </div>`
+  },
+  dsp: {
+    color: '#f43f5e',
+    title: 'La Délégation de Service Public (DSP)',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Définition légale</strong>Contrat par lequel la collectivité confie la gestion à un délégataire dont la rémunération est liée aux résultats (art. L.1411-1 CGCT)</div>
+      <div class="panel-item"><strong>Concession</strong>Le délégataire finance ET exploite. Risque total pour l'opérateur.</div>
+      <div class="panel-item"><strong>Affermage</strong>La collectivité fournit les équipements. L'opérateur exploite et collecte les redevances.</div>
+      <div class="panel-item"><strong>Procédure</strong>Publicité, mise en concurrence obligatoire (durée limitée)</div>
+    </div>`
+  },
+  ep: {
+    color: '#f43f5e',
+    title: 'L\'Établissement Public Local',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Définition</strong>Personne morale de droit public créée par la collectivité, dotée d'un budget propre et d'une autonomie de gestion</div>
+      <div class="panel-item"><strong>Exemples FPT</strong>CCAS (Centre Communal d'Action Sociale), caisse des écoles, SPL (Société Publique Locale)</div>
+      <div class="panel-item"><strong>SPA ou SPIC ?</strong>Peut être les deux selon la nature de l'activité</div>
+    </div>`
+  },
+  acteurs: {
+    color: '#8b5cf6',
+    title: '👥 Les Acteurs du Service Public Local',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Collectivités territoriales</strong>Communes, EPCI, Départements, Régions. Créent et organisent les services.</div>
+      <div class="panel-item"><strong>L'État</strong>Exerce le contrôle de légalité a posteriori (préfet). Fixe le cadre législatif.</div>
+      <div class="panel-item"><strong>Les usagers</strong>Bénéficiaires du service. Droits : accès égal, recours. Devoirs : respect du règlement, paiement.</div>
+      <div class="panel-item"><strong>Les agents territoriaux</strong>Fonctionnaires et contractuels FPT. Mettent en œuvre les missions.</div>
+    </div>`
+  },
+  types: {
+    color: '#f59e0b',
+    title: '📂 Types de Services Publics : SPA & SPIC',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>SPA – Service Public Administratif</strong>Régime de droit public. Financement par subventions publiques. Agents soumis à la FPT. Ex. : état civil, police municipale.</div>
+      <div class="panel-item"><strong>SPIC – Service Public Industriel et Commercial</strong>Régime proche du droit privé. Financement par redevances des usagers. Ex. : eau potable en DSP, transports urbains.</div>
+      <div class="panel-item"><strong>Critères de distinction</strong>Objet (nature de l'activité), ressources (subvention ou redevance), modalités de gestion (droit public ou privé)</div>
+      <div class="panel-item"><strong>Importance pratique</strong>Détermine le droit applicable aux agents, aux contrats, aux litiges (tribunal administratif vs. tribunal civil)</div>
+    </div>`
+  },
+  spa: {
+    color: '#f59e0b',
+    title: 'Le Service Public Administratif (SPA)',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Régime juridique</strong>Droit public (droit administratif)</div>
+      <div class="panel-item"><strong>Financement</strong>Subventions publiques, impôts locaux</div>
+      <div class="panel-item"><strong>Personnel</strong>Agents de la FPT (fonctionnaires ou contractuels de droit public)</div>
+      <div class="panel-item"><strong>Exemples</strong>État civil, police municipale, instruction des permis de construire, aide sociale légale</div>
+    </div>`
+  },
+  spic: {
+    color: '#f59e0b',
+    title: 'Le Service Public Industriel et Commercial (SPIC)',
+    content: `<div class="panel-grid">
+      <div class="panel-item"><strong>Régime juridique</strong>Droit privé pour les agents et contrats (sauf directeur et comptable)</div>
+      <div class="panel-item"><strong>Financement</strong>Redevances payées par les usagers (prix)</div>
+      <div class="panel-item"><strong>Caractéristiques</strong>Gestion analogue à une entreprise privée (équilibre recettes/dépenses)</div>
+      <div class="panel-item"><strong>Exemples</strong>Distribution d'eau, transport urbain, camping municipal, marché de gros</div>
+    </div>`
+  }
+};
+
+const tooltip = document.getElementById('tooltip');
+const ttTitle = document.getElementById('tt-title');
+const ttBody = document.getElementById('tt-body');
+
+// Tooltip on hover
+document.querySelectorAll('.node-group').forEach(node => {
+  node.addEventListener('mouseenter', (e) => {
+    const key = getKeyFromNode(node);
+    const data = panels[key];
+    if (!data) return;
+    ttTitle.style.color = data.color;
+    ttTitle.textContent = data.title.replace(/^[^\s]+ /, '');
+    ttBody.innerHTML = `<span style="color:${data.color};font-size:0.7rem">Cliquez pour les détails complets</span>`;
+    tooltip.classList.add('visible');
+  });
+
+  node.addEventListener('mousemove', (e) => {
+    const x = e.clientX + 16;
+    const y = e.clientY + 16;
+    tooltip.style.left = Math.min(x, window.innerWidth - 300) + 'px';
+    tooltip.style.top = y + 'px';
+  });
+
+  node.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('visible');
+  });
+});
+
+function getKeyFromNode(node) {
+  const onclick = node.getAttribute('onclick');
+  if (!onclick) return null;
+  const m = onclick.match(/showPanel\('([^']+)'\)/);
+  return m ? m[1] : null;
+}
+
+function showPanel(key) {
+  const data = panels[key];
+  if (!data) return;
+
+  const panel = document.getElementById('info-panel');
+  const card = document.getElementById('panel-content');
+  document.getElementById('panel-title').textContent = data.title;
+  document.getElementById('panel-body').innerHTML = data.content;
+  card.style.setProperty('--panel-accent', data.color);
+
+  panel.classList.add('active');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closePanel() {
+  document.getElementById('info-panel').classList.remove('active');
+}
+
+function filterBranch(branch) {
+  const nodes = document.querySelectorAll('[data-branch]');
+  nodes.forEach(n => {
+    if (branch === null || n.dataset.branch === branch) {
+      n.style.opacity = '1';
+      n.style.filter = '';
+    } else {
+      n.style.opacity = '0.15';
+    }
+  });
+}
+
+// Animate branches on load
+document.querySelectorAll('.branch-line, .sub-line').forEach((line, i) => {
+  line.style.strokeDasharray = '1000';
+  line.style.strokeDashoffset = '1000';
+  line.style.transition = `stroke-dashoffset 0.8s ease ${i * 0.06}s`;
+  setTimeout(() => { line.style.strokeDashoffset = '0'; }, 100);
+});
+</script>
 </body>
 </html>
